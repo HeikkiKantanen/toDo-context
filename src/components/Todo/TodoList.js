@@ -1,15 +1,22 @@
-import React from "react";
+import React, { useContext } from "react";
 
-import { notes } from "../../notes";
 import classes from "./TodoList.module.css";
+import { NotesContext } from "../store/todoStore";
 
 const TodoList = () => {
+  const ctx = useContext(NotesContext);
+
+  const removeHandler = (id) => {
+    ctx.removeTodo(id);
+  }
+
+  console.log(ctx);
   return (
     <div className={classes.todos}>
       <h1>Notes:</h1>
-      {notes.map((note) => {
+      {ctx.notes.map((note) => {
         return (
-          <div className={classes.todo}>
+          <div className={classes.todo} key={note.id} onClick={() => removeHandler(note.id)}>
             <h2>
               {note.id}. {note.title}
             </h2>
