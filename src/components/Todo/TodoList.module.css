@@ -10,7 +10,36 @@
 }
 
 .todo {
-  border: 1px solid #ccc;
+  border: 1px solid #f8f8f8;
   margin: 0.5rem 0;
   padding: 0.5rem;
+  position: relative;
+  cursor: pointer;
+}
+
+.todo.done h2,
+.todo.done p {
+  background-color: whitesmoke;
+  text-decoration: line-through;
+  color: red;
+}
+
+.todo.done span {
+  color: red;
+}
+
+.todo.done span:hover {
+  color: #333;
+}
+
+.delete {
+  position: absolute;
+  color: white;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+}
+
+.delete:hover {
+  color: red;
 }

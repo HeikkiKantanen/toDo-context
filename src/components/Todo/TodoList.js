@@ -16,11 +16,22 @@ const TodoList = () => {
       <h1>Notes:</h1>
       {ctx.notes.map((note) => {
         return (
-          <div className={classes.todo} key={note.id} onClick={() => removeHandler(note.id)}>
-            <h2>
-              {note.id}. {note.title}
-            </h2>
+          <div 
+            className={`${classes.todo} ${ 
+              note.done ? classes.done : classes.notDone 
+            }`}
+            key={note.id}
+            onClick={() => ctx.doneTodo(note.id)}
+          >
+            <h2>{note.title}</h2>
             <p>{note.task}</p>
+            <p></p>
+            <span 
+              className={`material-icons ${classes.delete}`}
+              onClick={() => removeHandler(note.id)}
+            >
+              delete
+            </span>
           </div>
         );
       })}

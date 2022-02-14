@@ -40,15 +40,21 @@ const reducer = (state, action) => {
                     },
                 ],
             };
-        case 'REMOVE_TODO':
-            const newArray = [...state.notes];
-            newArray.splice(
-                newArray.findIndex((item) => item.id === action.id), 
-                1
-            );
+        case 'REMOVE_NOTE':
+            const updateArray = state.notes.filter((item) => item.id !== action.id);
             return {
                 ...state,
-                notes: newArray,
+                notes: updateArray,
+            };
+        case "DONE_NOTE":
+            const doneToggle = state.notes.map((item) => {
+                return item.id === action.id
+                    ? { ...item, done: !item.done }
+                    : { ...item };
+            });
+            return {
+                ...state,
+                notes: doneToggle,
             };
         default:
             return state;
@@ -67,15 +73,23 @@ export const Provider = ({ children }) => {
 
     const removeTodo = (id) => {
         dispatch({
-            type: "REMOVE_TODO",
+            type: "REMOVE_NOTE",
             id: id
+        });
+    };
+
+    const doneTodo = (id) => {
+        dispatch({
+            type: "DONE_NOTE",
+            id: id,
         });
     };
 
     const value = {
         notes: state.notes,
         addTodoItem: addTodoItem,
-        removeTodo: removeTodo
+        removeTodo: removeTodo,
+        doneTodo: doneTodo
     };
 
     return (
